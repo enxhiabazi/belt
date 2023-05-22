@@ -64,7 +64,8 @@ class User:
     def delete(cls, data):
         query = "DELETE FROM users WHERE users.id = %(user_id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
-  
+    
+    # Has the loggedUser liked/voted for a specific pie 
     @classmethod
     def get_liked_pies(cls, data):
         query = "SELECT votes.pie_id as id from votes LEFT JOIN pies on votes.pie_id = pies.id LEFT JOIN users on users.id = votes.user_id WHERE users.id=%(user_id)s;"

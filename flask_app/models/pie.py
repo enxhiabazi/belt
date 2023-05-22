@@ -21,18 +21,6 @@ class Pie:
             return results[0]
         return results
     
-    #READ get user's pies
-    @classmethod
-    def get_user_pies(cls, data):
-        query = "SELECT * FROM pies LEFT JOIN users on pies.user_id = users.id WHERE pies.user_id = %(user_id)s;"
-        results = connectToMySQL(cls.db_name).query_db(query, data)
-        pies = []
-        if results:
-            for pie in results:
-                pies.append(pie)
-            return pies
-        return pies
-    
     #READ get all pies and their makers
     @classmethod
     def get_all(cls):
@@ -83,7 +71,6 @@ class Pie:
         return connectToMySQL(cls.db_name).query_db(query, data)
 
     
-    
     #Getting the users likes so that we can see if he liked the clicked pie or not(so if it is his list or not)
     @classmethod
     def get_user_likes_id(cls, data):
@@ -95,7 +82,19 @@ class Pie:
                 nrOfLikes.append(row['id'])
             return nrOfLikes
         return nrOfLikes
-
+    
+    #READ get user's pies
+    @classmethod
+    def get_user_pies(cls, data):
+        query = "SELECT * FROM pies LEFT JOIN users on pies.user_id = users.id WHERE pies.user_id = %(user_id)s;"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        pies = []
+        if results:
+            for pie in results:
+                pies.append(pie)
+            return pies
+        return pies
+    
 
     #VALIDATION
     @staticmethod
